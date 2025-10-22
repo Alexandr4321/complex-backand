@@ -1,0 +1,61 @@
+<?php
+
+namespace DummyNamespace;
+
+use NamespacedDummyModel;
+use App\System\Models\User;
+use App\System\Models\Permission;
+use App\System\Models\Role;
+use App\System\Classes\Seeder;
+
+class DummyClass extends Seeder
+{
+
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        // Seeds data
+
+        if ((config('app.env') !== 'production')) {
+            factory(DummyModel::class, 50)->create();
+        }
+
+        // Create permissions
+        Permission::create(['name' => 'DummyRole_read']);
+        Permission::create(['name' => 'DummyRole_create']);
+        Permission::create(['name' => 'DummyRole_edit']);
+        Permission::create(['name' => 'DummyRole_delete']);
+        Permission::create(['name' => 'DummyRole_history']);
+    
+    
+        // Create roles
+        Role::create(['name' => 'DummyRole_poor'])
+            ->givePermissionTo('DummyRole_read');
+    
+        Role::create(['name' => 'DummyRole_reach'])
+            ->givePermissionTo([
+                'DummyRole_create',
+                'DummyRole_edit',
+                'DummyRole_delete',
+            ]);
+    
+        Role::create(['name' => 'DummyRole_admin'])
+            ->givePermissionTo([
+                'DummyRole_read',
+                'DummyRole_create',
+                'DummyRole_edit',
+                'DummyRole_delete',
+                'DummyRole_history',
+            ]);
+        
+        
+        // Give roles to users
+        User::where('email', 'admin@site.com')->first()->assignRole('DummyRole_admin');
+        User::where('email', 'reach@site.com')->first()->assignRole(['DummyRole_poor', 'DummyRole_reach']);
+        User::where('email', 'poor@site.com')->first()->assignRole(['DummyRole_poor']);
+    }
+}

@@ -1,0 +1,188 @@
+<?php
+
+namespace DummyNamespace;
+
+use NamespacedDummyModel;
+use NamespacedDummyPivotModel1;
+use NamespacedDummyPivotModel2;NamespacedDummyRelations
+use App\System\Tests\TestCase;
+
+class DummyClass extends TestCase
+{
+
+    /** @test */
+    public function test_get()
+    {
+        $pivot1 = factory(DummyPivotModel1::class)->create();
+        $pivot2 = factory(DummyPivotModel2::class)->create();
+        $model = factory(DummyModel::class)->create(['DummyPivotId1' => $pivot1->id, 'DummyPivotId2' => $pivot2->id]);
+
+        $route = route('DummyModelRoute.get', [ 'id' => $model->id, ]);
+        $wrongRoute = route('DummyModelRoute.get', [ 'id' => 0, ]);
+
+        $response = $this->getJson($route);
+        $response->assertStatus(401);
+
+        $this->authPoor();
+        $response = $this->getJson($route);
+        $response->assertStatus(403);
+
+        $this->authReach();
+        $response = $this->getJson($wrongRoute);
+        $response->assertStatus(404);
+
+        $response = $this->getJson($route);
+        $response->assertStatus(200);
+    }
+
+    /** @test */
+    public function test_get_collection()
+    {
+        $pivot1 = factory(DummyPivotModel1::class)->create();
+        $pivot2 = factory(DummyPivotModel2::class)->create();
+        factory(DummyModel::class)->create(['DummyPivotId1' => $pivot1->id, 'DummyPivotId2' => $pivot2->id]);
+
+        $route = route('DummyModelRoute.getList');
+
+        $response = $this->getJson($route);
+        $response->assertStatus(401);
+
+        $this->authPoor();
+        $response = $this->getJson($route);
+        $response->assertStatus(403);
+
+        $this->authReach();
+        $response = $this->getJson($route);
+        $response->assertStatus(200);
+    }
+
+    /** @test */
+    public function test_get_pivot1()
+    {
+        $pivot1 = factory(DummyPivotModel1::class)->create();
+        $pivot2 = factory(DummyPivotModel2::class)->create();
+        factory(DummyModel::class)->create(['DummyPivotId1' => $pivot1->id, 'DummyPivotId2' => $pivot2->id]);
+
+        $route = route('DummyModelRoute.getDummyRouteName1', ['id' => $pivot1->id]);
+        $wrongRoute = route('DummyModelRoute.getDummyRouteName1', ['id' => 0]);
+
+        $response = $this->getJson($route);
+        $response->assertStatus(401);
+
+        $this->authPoor();
+        $response = $this->getJson($route);
+        $response->assertStatus(403);
+
+        $this->authReach();
+        $response = $this->getJson($wrongRoute);
+        $response->assertStatus(404);
+
+        $response = $this->getJson($route);
+        $response->assertStatus(200);
+    }
+
+    /** @test */
+    public function test_get_pivot2()
+    {
+        $pivot1 = factory(DummyPivotModel1::class)->create();
+        $pivot2 = factory(DummyPivotModel2::class)->create();
+        factory(DummyModel::class)->create(['DummyPivotId1' => $pivot1->id, 'DummyPivotId2' => $pivot2->id]);
+
+        $route = route('DummyModelRoute.getDummyRouteName2', ['id' => $pivot2->id]);
+        $wrongRoute = route('DummyModelRoute.getDummyRouteName2', ['id' => 0]);
+
+        $response = $this->getJson($route);
+        $response->assertStatus(401);
+
+        $this->authPoor();
+        $response = $this->getJson($route);
+        $response->assertStatus(403);
+
+        $this->authReach();
+        $response = $this->getJson($wrongRoute);
+        $response->assertStatus(404);
+
+        $response = $this->getJson($route);
+        $response->assertStatus(200);
+    }DummyRelations
+
+    /** @test */
+    public function test_post()
+    {
+        $pivot1 = factory(DummyPivotModel1::class)->create();
+        $pivot2 = factory(DummyPivotModel2::class)->create();
+        $model = factory(DummyModel::class)->make(['DummyPivotId1' => $pivot1->id, 'DummyPivotId2' => $pivot2->id]);
+
+        $params = [ 'DummyPivotId1' => $pivot1->id, 'DummyPivotId2' => $pivot2->id, ];
+        $route = route('DummyModelRoute.post', $params);
+
+        $response = $this->postJson($route, $model->toArray());
+        $response->assertStatus(401);
+
+        $this->authPoor();
+        $response = $this->postJson($route, $model->toArray());
+        $response->assertStatus(403);
+
+        $this->authReach();
+        $response = $this->postJson($route, []);
+        $response->assertStatus(422);
+
+        $response = $this->postJson($route, $model->toArray());
+        $response->assertStatus(201);
+    }
+
+    /** @test */
+    public function test_put()
+    {
+        $pivot1 = factory(DummyPivotModel1::class)->create();
+        $pivot2 = factory(DummyPivotModel2::class)->create();
+        $model = factory(DummyModel::class)->create(['DummyPivotId1' => $pivot1->id, 'DummyPivotId2' => $pivot2->id]);
+
+        $params = [ 'DummyPivotId1' => $pivot1->id, 'DummyPivotId2' => $pivot2->id, ];
+        $route = route('DummyModelRoute.put', $params);
+        $wrongRoute = route('DummyModelRoute.put', [ 'id1' => 0, 'id2' => 0]);
+
+        $response = $this->putJson($route, $model->toArray());
+        $response->assertStatus(401);
+
+        $this->authPoor();
+        $response = $this->putJson($route, $model->toArray());
+        $response->assertStatus(403);
+
+        $this->authReach();
+        $response = $this->putJson($wrongRoute, $model->toArray());
+        $response->assertStatus(404);
+
+        $response = $this->putJson($route, []);
+        $response->assertStatus(422);
+
+        $response = $this->putJson($route, $model->toArray());
+        $response->assertStatus(200);
+    }
+
+    /** @test */
+    public function test_delete()
+    {
+        $pivot1 = factory(DummyPivotModel1::class)->create();
+        $pivot2 = factory(DummyPivotModel2::class)->create();
+        $model = factory(DummyModel::class)->create(['DummyPivotId1' => $pivot1->id, 'DummyPivotId2' => $pivot2->id]);
+
+        $params = [ 'DummyPivotId1' => $pivot1->id, 'DummyPivotId2' => $pivot2->id, ];
+        $route = route('DummyModelRoute.delete', $params);
+        $wrongRoute = route('DummyModelRoute.delete', [ 'id1' => 0, 'id2' => 0]);
+
+        $response = $this->deleteJson($route);
+        $response->assertStatus(401);
+
+        $this->authPoor();
+        $response = $this->deleteJson($route);
+        $response->assertStatus(403);
+
+        $this->authReach();
+        $response = $this->deleteJson($wrongRoute);
+        $response->assertStatus(404);
+
+        $response = $this->deleteJson($route);
+        $response->assertStatus(200);
+    }
+}

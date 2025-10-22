@@ -1,0 +1,23 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\System\Models\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class DummyClass extends Model
+{
+    use SoftDeletes;
+
+    const CREATED_AT = 'createdAt';
+    const DELETED_AT = 'deletedAt';
+    const UPDATED_AT = null;
+
+    protected $table = 'DummyTableName';
+
+    protected $attributes = DummyAttributes;
+
+    protected $guarded = DummyGuarded;
+
+    protected $hidden = DummyHidden;DummyPivotRelationsDummyRelations
+}

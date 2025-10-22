@@ -1,0 +1,170 @@
+<?php
+
+namespace DummyNamespace;
+
+use NamespacedDummyModel;
+use NamespacedDummyResource;
+use NamespacedDummyRequest;
+use NamespacedDummyPivotRelation1;
+use NamespacedDummyPivotRelationResource1;
+use NamespacedDummyPivotRelation2;
+use NamespacedDummyPivotRelationResource2;
+use App\System\Requests\CollectionRequest;
+use App\System\Responses\JsonResponse;
+use App\System\Controllers\Controller;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
+/**
+ * @group DummyGroup
+ */
+class DummyClass extends Controller
+{
+    /**
+     * @title Get
+     * @description Get action
+     *
+     * @param  DummyModel  $model
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
+    public function get(DummyModel $model)
+    {
+        $this->authorize('readOne', $model);
+
+        return $this->response(new DummyResource($model));
+    }
+    /**
+     * @title GetAll
+     * @description GetAll action
+     *
+     * @param  CollectionRequest  $request
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
+    public function getList(CollectionRequest $request)
+    {
+        $this->authorize('read', DummyModel::class);
+
+        return $this->response(new DummyResource(DummyModel::class));
+    }
+    /**
+     * @title Get DummyPivotRelationPlural1
+     * @description Get DummyPivotRelationPlural1s by DummyPivotRelationPlural2 action
+     *
+     * @param  CollectionRequest  $request
+     * @param  DummyPivotRelation2  $model
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
+    public function getDummyPivotRelationPluralU1(CollectionRequest $request, DummyPivotRelation2 $model)
+    {
+        $this->authorize('read', DummyPivotRelation1::class);
+
+        return $this->response(new DummyPivotRelationResource1($model->DummyPivotRelationPlural1));
+    }
+    /**
+     * @title Get DummyPivotRelationPlural2
+     * @description Get DummyPivotRelationPlural2 by DummyPivotRelationPlural1 action
+     *
+     * @param  CollectionRequest  $request
+     * @param  DummyPivotRelation1  $model
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
+    public function getDummyPivotRelationPluralU2(CollectionRequest $request, DummyPivotRelation1 $model)
+    {
+        $this->authorize('read', DummyPivotRelation2::class);
+
+        return $this->response(new DummyPivotRelationResource2($model->DummyPivotRelationPlural2));
+    }
+    /**
+     * @title Post
+     * @description Post action
+     *
+     * @param  DummyRequest  $request
+     * @param  int  $DummyPivotRelationId1
+     * @param  int  $DummyPivotRelationId2
+     * @return JsonResponse
+     * @throws AuthorizationException
+     * @throws ValidationException
+     */
+    public function post(DummyRequest $request, $DummyPivotRelationId1, $DummyPivotRelationId2)
+    {
+        $this->authorize('create', DummyModel::class);
+
+        $request->validate(function () {
+            history()->try('create', DummyModel::class, 'DummyRole_history', request()->all());
+        });
+
+        $model = new DummyModel();
+        $model->DummyPivotRelationId1 = $DummyPivotRelationId1;
+        $model->DummyPivotRelationId2 = $DummyPivotRelationId2;
+        $model->fill(request()->all());
+        $model->save();
+
+        history()->add('create', $model, 'DummyRole_history');
+
+        return $this->response(new DummyResource($model), '', 201);
+    }
+    /**
+     * @title Put
+     * @description Put action
+     *
+     * @param  DummyRequest  $request
+     * @param  int  $DummyPivotRelationId1
+     * @param  int  $DummyPivotRelationId2
+     * @return JsonResponse
+     * @throws NotFoundHttpException
+     * @throws AuthorizationException
+     * @throws ValidationException
+     */
+    public function put(DummyRequest $request, $DummyPivotRelationId1, $DummyPivotRelationId2)
+    {
+        $model = DummyModel::where('DummyPivotRelationId1', $DummyPivotRelationId1)->where('DummyPivotRelationId2', $DummyPivotRelationId2)->first();
+
+        if (!$model) {
+            throw new NotFoundHttpException;
+        }
+
+        $this->authorize('edit', $model);
+
+        $request->uniqueExcept($model->id);
+        $request->validate(function () {
+            history()->try('edit', DummyModel::class, 'DummyRole_history', request()->all());
+        });
+
+        $model->fill(request()->all());
+        $model->save();
+
+        history()->add('edit', $model, 'DummyRole_history');
+
+        return $this->response(new DummyResource($model));
+    }
+    /**
+     * @title Delete
+     * @description Delete action
+     *
+     * @param  int  $DummyPivotRelationId1
+     * @param  int  $DummyPivotRelationId2
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
+    public function delete($DummyPivotRelationId1, $DummyPivotRelationId2)
+    {
+        $model = DummyModel::where('DummyPivotRelationId1', $DummyPivotRelationId1)->where('DummyPivotRelationId2', $DummyPivotRelationId2)->first();
+
+        if (!$model) {
+            throw new NotFoundHttpException;
+        }
+
+        $this->authorize('delete', $model);
+
+        history()->add('delete', $model, 'DummyRole_history');
+
+        $model->delete();
+
+        return $this->response([], 'Deleted');
+    }
+}

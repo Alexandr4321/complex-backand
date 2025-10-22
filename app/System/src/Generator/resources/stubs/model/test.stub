@@ -1,0 +1,118 @@
+<?php
+
+namespace DummyNamespace;
+
+use NamespacedDummyModel;NamespacedDummyRelations
+use App\System\Tests\TestCase;
+
+class DummyClass extends TestCase
+{
+
+    /** @test */
+    public function test_get()
+    {
+        $model = factory(DummyModel::class)->create();
+        $route = route('DummyModelRoute.get', [ 'id' => $model->id, ]);
+        $wrongRoute = route('DummyModelRoute.get', [ 'id' => 0, ]);
+
+        $response = $this->getJson($route);
+        $response->assertStatus(401);
+
+        $this->authPoor();
+        $response = $this->getJson($route);
+        $response->assertStatus(403);
+
+        $this->authReach();
+        $response = $this->getJson($wrongRoute);
+        $response->assertStatus(404);
+
+        $response = $this->getJson($route);
+        $response->assertStatus(200);
+    }
+
+    /** @test */
+    public function test_get_collection()
+    {
+        factory(DummyModel::class, 10)->create();
+        $route = route('DummyModelRoute.getList');
+
+        $response = $this->getJson($route);
+        $response->assertStatus(401);
+
+        $this->authPoor();
+        $response = $this->getJson($route);
+        $response->assertStatus(403);
+
+        $this->authReach();
+        $response = $this->getJson($route);
+        $response->assertStatus(200);
+    }DummyRelations
+
+    /** @test */
+    public function test_post()
+    {
+        $model = factory(DummyModel::class)->make();
+        $route = route('DummyModelRoute.post');
+
+        $response = $this->postJson($route, $model->toArray());
+        $response->assertStatus(401);
+
+        $this->authPoor();
+        $response = $this->postJson($route, $model->toArray());
+        $response->assertStatus(403);
+
+        $this->authReach();
+        $response = $this->postJson($route, []);
+        $response->assertStatus(422);
+
+        $response = $this->postJson($route, $model->toArray());
+        $response->assertStatus(201);
+    }
+
+    /** @test */
+    public function test_put()
+    {
+        $model = factory(DummyModel::class)->create();
+        $route = route('DummyModelRoute.put', [ 'id' => $model->id, ]);
+        $wrongRoute = route('DummyModelRoute.put', [ 'id' => 0, ]);
+
+        $response = $this->putJson($route, $model->toArray());
+        $response->assertStatus(401);
+
+        $this->authPoor();
+        $response = $this->putJson($route, $model->toArray());
+        $response->assertStatus(403);
+
+        $this->authReach();
+        $response = $this->putJson($wrongRoute, $model->toArray());
+        $response->assertStatus(404);
+
+        $response = $this->putJson($route, []);
+        $response->assertStatus(422);
+
+        $response = $this->putJson($route, $model->toArray());
+        $response->assertStatus(200);
+    }
+
+    /** @test */
+    public function test_delete()
+    {
+        $model = factory(DummyModel::class)->create();
+        $route = route('DummyModelRoute.delete', [ 'id' => $model->id, ]);
+        $wrongRoute = route('DummyModelRoute.delete', [ 'id' => 0, ]);
+
+        $response = $this->deleteJson($route);
+        $response->assertStatus(401);
+
+        $this->authPoor();
+        $response = $this->deleteJson($route);
+        $response->assertStatus(403);
+
+        $this->authReach();
+        $response = $this->deleteJson($wrongRoute);
+        $response->assertStatus(404);
+
+        $response = $this->deleteJson($route);
+        $response->assertStatus(200);
+    }
+}

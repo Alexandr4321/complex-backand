@@ -1,0 +1,19 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\System\Classes\Seeder;
+
+class DatabaseSeeder extends Seeder
+{
+
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        DummySeeders
+    }
+}

@@ -1,0 +1,348 @@
+// integer, long, float, double, string, byte, binary, boolean, date, dateTime, password
+
+{
+  "openapi": "3.0.0",
+
+  "info": {
+    "title": "Laravel Backend",
+    "description": "",
+    "termsOfService": "",
+    "contact": {
+      "name": "API Support",
+      "url": "http://www.example.com/support",
+      "email": "support@example.com"
+    },
+    "version": "0.0.0"
+  },
+
+  "paths": {
+    "/api/v1/quizzes/{quiz}": {
+      "get": {
+        "tags": [
+          "qwe"
+        ],
+        "summary": "Get",
+        "description": "Get Action",
+        "operationId": "/api/v1/quizzes/{quiz}@get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "quiz",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "example": {
+                  "data": {
+                    "id": 51,
+                    "title": "Expedita cum eum voluptas libero est velit. Sit odio deserunt dolor numquam. Voluptatem et est impedit saepe nesciunt voluptatem sed.",
+                    "description": "Quae et et ducimus qui ratione reprehenderit. Aperiam nihil saepe omnis rem et. Voluptatem voluptate a cum eos sed iusto. Quidem temporibus totam qui ab error eligendi. Excepturi et magnam repudiandae et minus. Esse quia et rerum. Omnis dignissimos et et illo est distinctio et. Voluptas excepturi aliquam similique ab praesentium eveniet mollitia minus. Sit consequatur voluptatem voluptatem fugiat. Et ad repellat impedit velit quia nostrum. Ad excepturi ducimus voluptatibus autem ad. Et praesentium harum necessitatibus cum autem in. Vel nihil et officia amet. Consequatur reprehenderit atque autem nesciunt vel est. Odit iure sit distinctio ea dolorem. Dolorem non et eos sit. Tempora odit quaerat deleniti similique. Sint rerum qui nihil a alias. Dolorem eos ipsum ea hic incidunt praesentium. Quis laborum incidunt quibusdam omnis. Quia natus et sint molestias. Doloremque consequatur architecto sint. Est repellendus qui nihil eaque animi sint. Aut inventore et magni officiis et. Nihil sapiente exercitationem officia maiores ipsa doloribus sequi omnis. Voluptatem voluptatum voluptatum quis est quibusdam. Rem fugiat ut illo aliquid ut. Voluptatem repudiandae ratione est voluptas facilis aut minus. Et autem est asperiores impedit illum qui omnis et. Fuga velit dolorem fugiat quaerat modi ullam molestiae. Minus aliquam possimus ea rerum. Velit aut aut recusandae dolorum eveniet. Molestias eveniet adipisci modi aliquam consequatur. Exercitationem reprehenderit vero eum at. Veritatis soluta quia ex dolores voluptates eius et. Itaque in voluptas fugit placeat sit eveniet. Rerum maxime expedita expedita amet eius. Perferendis exercitationem aut eius aliquid pariatur doloremque dolore. Iure quia minima voluptas voluptatem est. Qui ea odit voluptas ut. Aspernatur magnam rerum assumenda. Aut quaerat natus sapiente dolorum alias sit facere. Laborum perferendis aperiam sunt. Enim voluptatem aspernatur voluptas reprehenderit quis ut unde. Esse exercitationem et possimus eos delectus non quas. Omnis deserunt officia tempore quo animi labore commodi. Eaque tenetur ut eos voluptatum ab aut blanditiis. Dolor laboriosam sed in exercitationem rem. Corporis aliquid exercitationem illum non rem. Eligendi et maxime aut eum. Quia corporis odio tempore. Velit est earum id quia quo earum. Corrupti autem laudantium facere autem odit rerum. Odio perspiciatis omnis iure harum exercitationem. Sit accusamus blanditiis sunt qui in magnam. Odio dicta dolorem tempore quos quis eos assumenda.",
+                    "startedAt": "1993-01-09T22:16:14.000000Z",
+                    "endedAt": "2009-12-13T12:07:04.000000Z",
+                    "viewCount": 77,
+                    "isPrivate": true,
+                    "isVoted": true,
+                    "canComment": true,
+                    "createdAt": "2019-10-01T13:25:34.000000Z",
+                    "author": {
+                      "id": 1,
+                      "email": "admin@site.com",
+                      "name": "Voluptatem corrupti ea enim quia et. Unde quis qui hic totam. Est ratione veniam adipisci et minima iusto. Id minima laboriosam assumenda atque commodi autem. Totam odio a et ab. Corporis aut quo ut et. Ipsam autem sit consequatur eum animi at.",
+                      "rating": 1,
+                      "isBusiness": false,
+                      "isVoted": false,
+                      "avatar": null
+                    },
+                    "category": {
+                      "id": 20,
+                      "title": "Enim accusantium porro culpa qui. Labore natus ad et quia dolorum ullam aliquid. Impedit debitis qui modi at. Architecto beatae quas delectus suscipit quod reprehenderit.",
+                      "hidden": null,
+                      "position": 22,
+                      "parent": "App\\Base\\Resources\\CategoryResource",
+                      "children": "App\\Base\\Resources\\CategoryResource",
+                      "owner": "App\\Base\\Resources\\CategoryResource",
+                      "owned": "App\\Base\\Resources\\CategoryResource"
+                    },
+                    "questions": [
+
+                    ]
+                  },
+                  "message": ""
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/Quiz"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "example": {
+                  "data": [
+
+                  ],
+                  "message": "Model not found"
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": [
+
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+
+        ]
+      }
+    },
+    "/api/v1/quizzes": {
+      "get": {
+        "tags": [ "asd" ],
+        "summary": "Get",
+        "description": "Get Action",
+        // Сразу после описания
+        "externalDocs": {
+          "description": "External file",
+          "url": "https://google.com"
+        },
+        "operationId": "/api/v1/quizzes/{quiz}@get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path", // query, path, cookie, header
+            "description": "",
+            "required": true,
+            "deprecated": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "sadasd",
+          "required": true,
+          "content": {
+            "one": {
+              "schema": {
+                "type": "object",
+                // Не обязательно
+                "properties": {
+                  "author": {
+                    "type": "object",
+                    "properties": {}
+                  },
+                  "category": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "example": {
+                "author": {
+                  "id": 1,
+                  "name": "asdasd"
+                },
+                "category": 0
+              },
+              "encoding": {},
+              // Не работает в свагере.
+              "examples": {
+                "one": {},
+                "two": {}
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "example": {
+                  "data": {
+                    "id": 51,
+                    "title": "Expedita cum eum voluptas libero est velit. Sit odio deserunt dolor numquam. Voluptatem et est impedit saepe nesciunt voluptatem sed.",
+                    "description": "Quae et et ducimus qui ratione reprehenderit. Aperiam nihil saepe omnis rem et. Voluptatem voluptate a cum eos sed iusto. Quidem temporibus totam qui ab error eligendi. Excepturi et magnam repudiandae et minus. Esse quia et rerum. Omnis dignissimos et et illo est distinctio et. Voluptas excepturi aliquam similique ab praesentium eveniet mollitia minus. Sit consequatur voluptatem voluptatem fugiat. Et ad repellat impedit velit quia nostrum. Ad excepturi ducimus voluptatibus autem ad. Et praesentium harum necessitatibus cum autem in. Vel nihil et officia amet. Consequatur reprehenderit atque autem nesciunt vel est. Odit iure sit distinctio ea dolorem. Dolorem non et eos sit. Tempora odit quaerat deleniti similique. Sint rerum qui nihil a alias. Dolorem eos ipsum ea hic incidunt praesentium. Quis laborum incidunt quibusdam omnis. Quia natus et sint molestias. Doloremque consequatur architecto sint. Est repellendus qui nihil eaque animi sint. Aut inventore et magni officiis et. Nihil sapiente exercitationem officia maiores ipsa doloribus sequi omnis. Voluptatem voluptatum voluptatum quis est quibusdam. Rem fugiat ut illo aliquid ut. Voluptatem repudiandae ratione est voluptas facilis aut minus. Et autem est asperiores impedit illum qui omnis et. Fuga velit dolorem fugiat quaerat modi ullam molestiae. Minus aliquam possimus ea rerum. Velit aut aut recusandae dolorum eveniet. Molestias eveniet adipisci modi aliquam consequatur. Exercitationem reprehenderit vero eum at. Veritatis soluta quia ex dolores voluptates eius et. Itaque in voluptas fugit placeat sit eveniet. Rerum maxime expedita expedita amet eius. Perferendis exercitationem aut eius aliquid pariatur doloremque dolore. Iure quia minima voluptas voluptatem est. Qui ea odit voluptas ut. Aspernatur magnam rerum assumenda. Aut quaerat natus sapiente dolorum alias sit facere. Laborum perferendis aperiam sunt. Enim voluptatem aspernatur voluptas reprehenderit quis ut unde. Esse exercitationem et possimus eos delectus non quas. Omnis deserunt officia tempore quo animi labore commodi. Eaque tenetur ut eos voluptatum ab aut blanditiis. Dolor laboriosam sed in exercitationem rem. Corporis aliquid exercitationem illum non rem. Eligendi et maxime aut eum. Quia corporis odio tempore. Velit est earum id quia quo earum. Corrupti autem laudantium facere autem odit rerum. Odio perspiciatis omnis iure harum exercitationem. Sit accusamus blanditiis sunt qui in magnam. Odio dicta dolorem tempore quos quis eos assumenda.",
+                    "startedAt": "1993-01-09T22:16:14.000000Z",
+                    "endedAt": "2009-12-13T12:07:04.000000Z",
+                    "viewCount": 77,
+                    "isPrivate": true,
+                    "isVoted": true,
+                    "canComment": true,
+                    "createdAt": "2019-10-01T13:25:34.000000Z",
+                    "author": {
+                      "id": 1,
+                      "email": "admin@site.com",
+                      "name": "Voluptatem corrupti ea enim quia et. Unde quis qui hic totam. Est ratione veniam adipisci et minima iusto. Id minima laboriosam assumenda atque commodi autem. Totam odio a et ab. Corporis aut quo ut et. Ipsam autem sit consequatur eum animi at.",
+                      "rating": 1,
+                      "isBusiness": false,
+                      "isVoted": false,
+                      "avatar": null
+                    },
+                    "category": {
+                      "id": 20,
+                      "title": "Enim accusantium porro culpa qui. Labore natus ad et quia dolorum ullam aliquid. Impedit debitis qui modi at. Architecto beatae quas delectus suscipit quod reprehenderit.",
+                      "hidden": null,
+                      "position": 22,
+                      "parent": "App\\Base\\Resources\\CategoryResource",
+                      "children": "App\\Base\\Resources\\CategoryResource",
+                      "owner": "App\\Base\\Resources\\CategoryResource",
+                      "owned": "App\\Base\\Resources\\CategoryResource"
+                    },
+                    "questions": [
+
+                    ]
+                  },
+                  "message": ""
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/Quiz"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "example": {
+                  "data": [
+
+                  ],
+                  "message": "Model not found"
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": [
+
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        // Обнуляем глобальную аутентификацию.
+        "security": []
+      }
+    }
+  },
+
+
+  "servers": [
+    {
+      "url": "http://localhost:8000",
+      "description": "Локальный сервер"
+    }
+  ],
+
+  // Тут хранятся переиспользуемые компоненты.
+  "components": {
+    "securitySchemes": {
+      "jwt": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "Quiz": {
+        "description": "This model used in some cases.",
+        "type": "object", // object, array, string, ...
+        "required": [ "id", "title", "description" ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "rules": "[ required, integer ]", // custom field
+            "description": "This is an id."
+          },
+          "title": {
+            "type": "string",
+            "rules": "[ required, string, max:100 ]",
+            "description": "This is a title."
+          },
+          "description": {
+            "type": "string",
+            "rules": "[ required, string, max:2000 ]",
+            "description": "This is a description."
+          }
+        },
+        // Не работает в свагере
+        "example": {
+          "id": 1,
+          "title": "ewqewe",
+          "description": "dasdasdasda asd asd asd"
+        }
+      }
+    }
+  },
+
+  // Объявляем глобально для всех роутов.
+  "security": {
+    "jwt": []
+  },
+
+  "tags": [
+    {
+      "name": "First",
+      "description": "Description of first",
+      // Может быть только 1 файл
+      "externalDocs": {
+        "description": "External file",
+        "url": "https://google.com"
+      }
+    },
+    {
+      "name": "Second",
+      "description": "Description of second"
+    }
+  ],
+
+  "externalDocs": {
+    "description": "Additionally documentation",
+    "url": "https://google.com"
+  }
+}

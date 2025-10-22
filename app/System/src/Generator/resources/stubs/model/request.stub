@@ -1,0 +1,23 @@
+<?php
+
+namespace DummyNamespace;
+
+NamespacedDummyModel
+use App\System\Requests\Request as Request;
+
+/**
+ * @description DummyDescription
+ */
+class DummyClass extends Request
+{
+
+    /**
+     * DummyComments
+     */
+    public function rules()
+    {
+        return [
+            DummyRules
+        ];
+    }
+}

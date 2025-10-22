@@ -1,0 +1,23 @@
+<?php
+
+namespace DummyNamespace;
+
+NamespacedDummyResources
+use App\System\Resources\JsonResource;
+
+/**
+ * @description DummyDescription
+ */
+class DummyClass extends JsonResource
+{
+
+    /**
+     * DummyComments
+     */
+    public function toArray($model, $request)
+    {
+        return [
+            DummyProperties
+        ];
+    }
+}

@@ -1,0 +1,116 @@
+<?php
+
+namespace DummyNamespace;
+
+use NamespacedDummyModel;
+use NamespacedDummyResource;
+use NamespacedDummyRequest;NamespacedDummyRelations
+use App\System\Controllers\Controller;
+use App\System\Requests\CollectionRequest;
+use App\System\Responses\JsonResponse;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Validation\ValidationException;
+
+/**
+ * @group DummyGroup
+ */
+class DummyClass extends Controller
+{
+    /**
+     * @title Get
+     * @description Get Action
+     *
+     * @param  DummyModel  $model
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
+    public function get(DummyModel $model)
+    {
+        $this->authorize('readOne', $model);
+
+        return $this->response(new DummyResource($model));
+    }
+    /**
+     * @title GetAll
+     * @description GetAll Action
+     *
+     * @param  CollectionRequest  $request
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
+    public function getList(CollectionRequest $request)
+    {
+        $this->authorize('read', DummyModel::class);
+
+        return $this->response(new DummyResource(DummyModel::class));
+    }DummyRelations
+    /**
+     * @title Post
+     * @description Post Action
+     *
+     * @param  DummyRequest  $request
+     * @return JsonResponse
+     * @throws AuthorizationException
+     * @throws ValidationException
+     */
+    public function post(DummyRequest $request)
+    {
+        $this->authorize('create', DummyModel::class);
+
+        $request->validate(function() {
+            history()->try('create', DummyModel::class, 'DummyRole_history', request()->all());
+        });
+
+        $model = new DummyModel();
+        $model->fill(request()->all());
+        $model->save();
+
+        history()->add('create', $model, 'DummyRole_history');
+
+        return $this->response(new DummyResource($model), '', 201);
+    }
+    /**
+     * @title Put
+     * @description Put Action
+     *
+     * @param  DummyRequest  $request
+     * @param  DummyModel  $model
+     * @return JsonResponse
+     * @throws AuthorizationException
+     * @throws ValidationException
+     */
+    public function put(DummyRequest $request, DummyModel $model)
+    {
+        $this->authorize('edit', $model);
+
+        $request->uniqueExcept($model->id);
+        $request->validate(function() {
+            history()->try('edit', DummyModel::class, 'DummyRole_history', request()->all());
+        });
+
+        $model->fill(request()->all());
+        $model->save();
+
+        history()->add('edit', $model, 'DummyRole_history');
+
+        return $this->response(new DummyResource($model));
+    }
+    /**
+     * @title Delete
+     * @description Delete Action
+     *
+     * @param  DummyModel  $model
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
+    public function delete(DummyModel $model)
+    {
+        $this->authorize('delete', $model);
+
+        history()->add('delete', $model, 'DummyRole_history');
+
+        $model->delete();
+
+        return $this->response([], 'Deleted');
+    }
+}

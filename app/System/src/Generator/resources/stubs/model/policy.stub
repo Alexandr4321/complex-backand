@@ -1,0 +1,42 @@
+<?php
+
+namespace DummyNamespace;
+
+use NamespacedDummyModel;
+use NamespacedDummyUserModel;
+use Illuminate\Auth\Access\HandlesAuthorization;
+
+class DummyClass
+{
+    use HandlesAuthorization;
+
+    /**
+     * Create a new policy instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //
+    }
+    
+    public function readOne(User $user, DummyModel $model) {
+        return $user->can('DummyRole_read');
+    }
+    
+    public function read(User $user) {
+        return $user->can('DummyRole_read');
+    }
+    
+    public function create(User $user) {
+        return $user->can('DummyRole_create');
+    }
+    
+    public function edit(User $user, DummyModel $model) {
+        return $user->can('DummyRole_edit');
+    }
+    
+    public function delete(User $user, DummyModel $model) {
+        return $user->can('DummyRole_delete');
+    }
+}

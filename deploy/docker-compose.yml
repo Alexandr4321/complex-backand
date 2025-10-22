@@ -1,0 +1,31 @@
+version: '3.5'
+
+services:
+  app:
+    image: ${REP_NAME}
+    container_name: ${REP_NAME}
+    restart: unless-stopped
+    volumes:
+      - .env:/var/www/.env
+      - ./storage:/var/www/storage
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.${REP_NAME}.rule=Host(`${APP_HOST}`)
+      - traefik.http.routers.${REP_NAME}.entrypoints=websecure
+      - traefik.http.routers.${REP_NAME}.tls.certresolver=main
+
+  postgres:
+    image: postgres:15 # https://hub.docker.com/_/postgres
+    container_name: ${REP_NAME}-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./storage/database/postgresql:/var/lib/postgresql/data
+
+networks:
+  default:
+    name: web
+    external: true
